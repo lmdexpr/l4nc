@@ -1,16 +1,18 @@
-type 'a matrix = 'a array array
+type 'a t = 'a array array
 
-val map : ('b -> 'a) -> 'a matrix -> 'a matrix
+val make : int -> int -> 'a -> 'a t
 
-val add, (<+>) : 'a matrix -> 'a matrix -> 'a matrix
-val mul, (<*>) : 'a matrix -> 'a matrix -> 'a matrix
+val map : ('b -> 'a) -> 'a t -> 'a t
 
-val transpose : 'a matrix -> 'a matrix
+val add, (<+>) : 'a t -> 'a t -> 'a t
+val mul, (<*>) : 'a t -> 'a t -> 'a t
 
-val determinant, det : 'a matrix -> 'a
+val transpose : 'a t -> 'a t
 
-val vertical_compose  , (<|>) : 'a matrix -> 'a matrix -> 'a matrix
-val horizontal_compose, (<->) : 'a matrix -> 'a matrix -> 'a matrix
+val determinant, det : 'a t -> 'a
 
-val pivoting : 'a matrix -> 'a matrix
+val vertical_compose  , (<|>) : 'a t -> 'a t -> 'a t
+val horizontal_compose, (<->) : 'a t -> 'a t -> 'a t
+
+val pivoting : 'a t -> 'a t
 
