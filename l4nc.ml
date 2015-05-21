@@ -1,7 +1,9 @@
 (* Library for Numerical Calculation *)
 
-open Matrix
+module Matrix = Matrix
 
-open GaussSeidel
+module LinearEq = LESolver
+
+module Matrix_op = Matrix_op
 
 open Utils
