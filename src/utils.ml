@@ -1,6 +1,7 @@
 let times n f =
-  let helper i = if i <> n then f i; helper (i+1) in
-  helper 0
+  for i = 0 to n do
+    f i
+  done
 
 module Array = struct
   include Array

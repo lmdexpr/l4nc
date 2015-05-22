@@ -7,8 +7,8 @@ open Matrix_op
  *  e is threshold.
  *)
 
-let sor_method w m e =
-  let a, b   = Matrix.hsplit (Matrix.pivoting m) (Matrix.width m -1) in
+let sor_method w e x0 m =
+  let a, b   = Matrix.hsplit m (Matrix.width m -1) in
   let ad     = Matrix.diag a in
   let a      = a /$ ad in
   let au, al = Matrix.triu a, Matrix.tril a in
@@ -35,13 +35,13 @@ let sor_method w m e =
 
   let run = run 0 in
 
-  if 0. < w && w < 2. then Some run else None
+  if 0. < w && w < 2. then Some (run x0) else None
 
 let gauss_seidel = sor_method 1.0
 
 let gauss_jordan m =
   let n    = Matrix.width m in
-  let a, b = Matrix.hsplit (Matrix.pivoting m) (n-1) in
+  let a, b = Matrix.hsplit m (n-1) in
   Array.mapi (fun i v ->
     ()
   ) m

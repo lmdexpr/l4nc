@@ -1,3 +1,5 @@
+open Utils
+
 (*
  * Matrix is
  * [| [| a11, a12, a13 .. a1y |],
@@ -10,7 +12,7 @@
 let make = Array.make_matrix
 
 let map f = Array.map (fun v -> Array.map f v)
-let mapij f = Array.mapi (fun i v -> Array.mapi (fun j e -> f (i,j) e))
+let mapij f = Array.mapi (fun i -> Array.mapi (fun j e -> f (i,j) e))
 
 let bin_op op lhs = mapij (fun (i,j) e -> op lhs.(i).(j) e) 
 
@@ -21,7 +23,7 @@ let div lhs = bin_op ( /. )
 
 let transpose m = mapij (fun (i,j) _ -> m.(j).(i)) m
 
-let dot lhs rhs = Array.map (fun v -> Array.fold_right (+.) v 0) mul lhs @@ transpose rhs
+let dot lhs rhs = Array.map (fun v -> Array.reduce (+.) v ) @@ mul lhs (transpose rhs)
 
 let diagonal m = Array.mapi (fun i () -> m.(i).(i)) m
 let diag = diagonal
