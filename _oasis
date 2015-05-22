@@ -1,0 +1,13 @@
+OASISFormat: 0.4
+Name:        l4nc
+Version:     0.0.1
+Synopsis:    library for numerical calculation
+Authors:     lmdexpr
+License:     MIT
+Plugins:     StdFiles (0.2)
+BuildType:   Custom (0.2)
+InstallType: Custom (0.2)
+XCustomBuild: PREFIX=$prefix omake
+XCustomInstall: PREFIX=$prefix omake install
+XCustomUninstall: PREFIX=$prefix omake uninstall
+BuildTools: omake

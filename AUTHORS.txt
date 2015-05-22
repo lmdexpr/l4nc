@@ -1,0 +1,8 @@
+(* OASIS_START *)
+(* DO NOT EDIT (digest: d97fe614b0106b967632b0d23e35cfa0) *)
+
+Authors of l4nc:
+
+* lmdexpr
+
+(* OASIS_STOP *)

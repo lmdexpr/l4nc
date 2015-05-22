@@ -1,0 +1,20 @@
+opam-version: "1.2"
+name: "l4nc"
+version: "0.1"
+maintainer: "lmdexpr <lmdexpr@gmail.com>"
+authors: "lmdexpr <lmdexpr@gmail.com>"
+homepage: ""
+bug-reports: ""
+license: "MIT"
+build: [
+  ["ocaml" "setup.ml" "-configure" "--prefix" "%{prefix}%"]
+  ["ocaml" "setup.ml" "-build"]
+]
+install: [
+  ["ocaml" "setup.ml" "-install"]
+]
+remove: [
+  ["ocaml" "setup.ml" "-uninstall"]
+]
+depends: ["ocamlfind" "omake"]
+ocaml-version: [>= "4.00.0"]

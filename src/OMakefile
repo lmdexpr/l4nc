@@ -1,0 +1,17 @@
+################################################
+# Build an OCaml library
+#
+
+FILES[] =
+   l4nc\
+	 linearEq\
+	 matrix\
+	 matrix_op\
+	 utils
+
+LIB = l4nc
+
+%: %.ml
+	$(OCAMLOPT) -a -o $* $*.ml
+
+.DEFAULT: $(OCamlLibrary $(LIB), $(FILES))
