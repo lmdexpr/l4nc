@@ -1,12 +1,8 @@
 *.annot
-*.cmo
-*.cma
-*.cmi
 *.a
 *.o
-*.cmx
-*.cmxs
-*.cmxa
+
+*.cm*
 
 # ocamlbuild working directory
 _build/
@@ -27,3 +23,5 @@ setup.log
 *.glob
 *.opt
 *.run
+
+*.swp
