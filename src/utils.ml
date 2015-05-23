@@ -8,4 +8,8 @@ module Array = struct
   let reduce f target =
     let len = length target - 1in
     fold_right f (sub target 1 len) target.(0)
+  let swap a i j =
+    let tmp = a.(i) in
+    a.(i) <- a.(j);
+    a.(j) <- tmp
 end

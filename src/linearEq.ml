@@ -7,12 +7,14 @@ open Matrix_op
  *  e is threshold.
  *)
 
-let sor_method w e x0 m =
-  let a, b   = Matrix.hsplit m (Matrix.width m -1) in
-  let ad     = Matrix.diag a in
-  let a      = a /$ ad in
-  let au, al = Matrix.triu a, Matrix.tril a in
-  let b      = b /$ ad.(i) in
+let sor_method w e x0 a b =
+  let ad = Matrix.diag a in
+  let a  = Matrix.mapij (fun (i,_) e -> e /. Matrix.get ad (i,i)) a in
+  let au = Matrix.triu a in
+  let al = Matrix.tril a in
+
+  let b = Array.mapi (fun i e -> e /. Matrix.get ad (i,i)) b in
+  let b = Matrix.of_array b in
 
   let next_x old_x =
     let new_x = b -$ au *.$ old_x in
@@ -39,9 +41,9 @@ let sor_method w e x0 m =
 
 let gauss_seidel = sor_method 1.0
 
-let gauss_jordan m =
-  let n    = Matrix.width m in
-  let a, b = Matrix.hsplit m (n-1) in
+let gauss_jordan a b =
+  let m = a |$ b in
+  let n = Matrix.width m in
   Array.mapi (fun i v ->
     ()
   ) m

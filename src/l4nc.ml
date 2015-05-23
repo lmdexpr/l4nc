@@ -2,8 +2,6 @@
 
 module Matrix = Matrix
 
-module LinearEq = LESolver
-
 module Matrix_op = Matrix_op
 
-open Utils
+module LESolver = LinearEq
