@@ -13,19 +13,29 @@ exception Not_square_matrix
 val make : int -> int -> 'a -> 'a matrix
 
 val get : 'a matrix -> int * int -> 'a
+val get_vec : 'a matrix -> int -> 'a array
+
+val set : 'a matrix -> int * int -> 'a -> unit
+val modify : 'a matrix -> int * int -> ('a -> 'a) -> unit
 
 val width  : 'a matrix -> int
 val height : 'a matrix -> int
-
-val of_array : 'a array -> 'a matrix
 
 (*
 val hsplit : 'a matrix -> int -> 'a matrix * 'a matrix
 val vsplit : 'a matrix -> int -> 'a matrix * 'a matrix
 *)
 
+val map_vec : ('a array -> 'b array) -> 'a matrix -> 'b matrix
+val mapi_vec : (int -> 'a array -> 'b array) -> 'a matrix -> 'b matrix
+
 val map : ('a -> 'b) -> 'a matrix -> 'b matrix
 val mapij : (int*int -> 'a -> 'b) -> 'a matrix -> 'b matrix
+
+val fold_right : ('a -> 'a -> 'a) -> 'a matrix -> 'a -> 'a
+val reduce: ('a -> 'a -> 'a) -> 'a matrix -> 'a
+
+val of_array : 'a array -> 'a matrix
 
 val bin_op : ('a -> 'b -> 'c) -> 'a matrix -> 'b matrix -> 'c matrix
 
@@ -58,3 +68,5 @@ val tril : float matrix -> float matrix
 
 (* todo: implement *)
 val normalize : float matrix -> unit
+
+val print_matrix : float matrix -> unit
