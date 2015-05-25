@@ -11,4 +11,9 @@ FILES[] =
 
 LIB = l4nc
 
+.PHONY: clean install uninstall
+
 .DEFAULT: $(OCamlLibrary $(LIB), $(FILES))
+
+clean:
+	rm -f *.cm* *.a *.o

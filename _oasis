@@ -11,3 +11,8 @@ XCustomBuild: PREFIX=$prefix omake
 XCustomInstall: PREFIX=$prefix omake install
 XCustomUninstall: PREFIX=$prefix omake uninstall
 BuildTools: omake
+
+Library l4nc
+  Path: lib
+  FindlibName: lib4nc
+  Modules: L4nc

@@ -1,5 +1,5 @@
 (* OASIS_START *)
-(* DO NOT EDIT (digest: c480dcf80fe7db76ed56514718958833) *)
+(* DO NOT EDIT (digest: bd5583909443894c489fb35fe8170f00) *)
 
 This is the INSTALL file for the l4nc distribution.
 
@@ -12,6 +12,7 @@ Dependencies
 In order to compile this package, you will need:
                                                 * ocaml
                                                 * findlib
+                                                * omake
 
 Installing
 ==========
