@@ -1,7 +1,7 @@
 (* Library for Numerical Calculation *)
 
-module Matrix = Matrix
+module Mat = Matrix
 
-module Matrix_op = Matrix_op
+open Matrix_op
 
 module LESolver = LinearEq

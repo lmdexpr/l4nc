@@ -29,6 +29,7 @@ let fold_right op m one = Array.fold_right op (map_vec (fun v -> Array.fold_righ
 let reduce op m = Array.reduce op (map_vec (fun v -> Array.reduce op v) m)
 
 let of_array a = map_vec (fun e -> [| e |]) a
+let of_2d_array a = a
 
 let bin_op op lhs = mapij (fun (x,y) e -> op lhs.(y).(x) e) 
 

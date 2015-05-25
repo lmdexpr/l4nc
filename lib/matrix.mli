@@ -36,6 +36,7 @@ val fold_right : ('a -> 'a -> 'a) -> 'a matrix -> 'a -> 'a
 val reduce: ('a -> 'a -> 'a) -> 'a matrix -> 'a
 
 val of_array : 'a array -> 'a matrix
+val of_2d_array : 'a array array -> 'a matrix
 
 val bin_op : ('a -> 'b -> 'c) -> 'a matrix -> 'b matrix -> 'c matrix
 
