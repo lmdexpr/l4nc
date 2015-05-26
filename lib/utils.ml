@@ -7,11 +7,12 @@ module Array = struct
   include Array
   let reduce f target =
     match length target with
-    | 0 -> raise (Invalid_argument "index out of bounds")
+    | 0 -> raise (Invalid_argument "cannot apply reduce")
     | 1 -> target.(0)
-    | len -> fold_right f (sub target 1 len) target.(0)
+    | len -> fold_left f target.(0) (sub target 1 (len - 1))
   let swap a i j =
     let tmp = a.(i) in
     a.(i) <- a.(j);
     a.(j) <- tmp
+  let for_all p target = reduce (&&) (map p target)
 end

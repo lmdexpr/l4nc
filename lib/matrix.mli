@@ -8,7 +8,6 @@
  *)
 
 type 'a matrix
-exception Not_square_matrix
 
 val make : int -> int -> 'a -> 'a matrix
 
@@ -30,7 +29,7 @@ val map_vec : ('a array -> 'b array) -> 'a matrix -> 'b matrix
 val mapi_vec : (int -> 'a array -> 'b array) -> 'a matrix -> 'b matrix
 
 val map : ('a -> 'b) -> 'a matrix -> 'b matrix
-val mapij : (int*int -> 'a -> 'b) -> 'a matrix -> 'b matrix
+val mapij : (int -> int -> 'a -> 'b) -> 'a matrix -> 'b matrix
 
 val fold_right : ('a -> 'a -> 'a) -> 'a matrix -> 'a -> 'a
 val reduce: ('a -> 'a -> 'a) -> 'a matrix -> 'a
@@ -47,7 +46,7 @@ val div : float matrix -> float matrix -> float matrix
 
 val transpose : 'a matrix -> 'a matrix
 
-val dot : float matrix -> float matrix -> float array
+val dot : float matrix -> float matrix -> float matrix
 
 (* todo: implement *)
 val determinant : 'a matrix -> unit
