@@ -1,3 +1,7 @@
+let rec apply_times n f x = 
+  if n = 0 then x
+  else apply_times (n-1) f (f x)
+
 let times n f =
   for i = 0 to n do
     f i

@@ -39,12 +39,13 @@ let sor_method w e x0 a b =
 
   let run = run 0 in
 
-  if 0. < w && w < 2. then Some (run (of_array x0)) else None
+  if not (0. < w && w < 2.) then invalid_arg "weight is out of correct range"
+  else run (of_array x0)
 
 let gauss_seidel = sor_method 1.0
 
 let gauss_jordan step m =
-  let last = width m - 2 in
+  let last = width m - 1 in
   times last (step last m);
   mapi_vec (fun i v -> [| v.(last) /. v.(i) |]) m
 
@@ -56,12 +57,12 @@ let step n m k =
       modify m (i,j) (fun lhs -> lhs -. c')
     done)
 
-  let gauss_jordan_with_norm = gauss_jordan (fun n m k ->
+let gauss_jordan = gauss_jordan step
+and gauss_jordan_with_norm = gauss_jordan (fun n m k ->
   for i = 0 to n + 1 do
     modify m (i,k) (fun lhs -> lhs /. get m (k, k))
-  done;
+    done;
   step n m k)
-let gauss_jordan           = gauss_jordan step
 
 (* No export function *)
 let step = ()
