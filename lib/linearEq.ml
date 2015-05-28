@@ -16,12 +16,8 @@ let sor_method w e x0 a b =
 
   let next_x x =
     let x     = b -$ au *.$ x in
-    let last  = width x in
-    times last (fun i ->
-      let buf = of_array @@ get_vec al i in
-      let buf = buf *.$ transpose x in
-      modify x (i,0) (fun lhs -> (lhs -. get buf (0,0)) /. ad i);
-      );
+    let last  = height x - 1 in
+    times last (fun i -> modify x (i,0) (fun lhs -> (lhs -. get (al *.$ x) (i,0)) /. ad i));
     x
   in
 
@@ -37,34 +33,51 @@ let sor_method w e x0 a b =
     if is_end then n, new_x else run (n+1) new_x
   in 
 
-  let run = run 0 in
+  let run = run 1 in
 
   if not (0. < w && w < 2.) then invalid_arg "weight is out of correct range"
   else run (of_array x0)
 
 let gauss_seidel = sor_method 1.0
 
-let gauss_jordan step m =
-  let last = width m - 1 in
-  times last (step last m);
-  mapi_vec (fun i v -> [| v.(last) /. v.(i) |]) m
+let gauss_elim n step post_proc m =
+  let last = width m - 1 - n in
+  times last (step last n m);
+  post_proc m
 
-let step n m k =
-  times n (fun i ->
-    let c = get m (i,k) /. get m (k,k) in
-    for j = k to n + 1 do
-      let c' = get m (k,j) *. c in
-      modify m (i,j) (fun lhs -> lhs -. c')
-    done)
+let step last n m k =
+  times last (fun i ->
+    if i = k then ()
+    else begin
+      let c = get m (i,k) /. get m (k,k) in
+      for j = k to last + n do
+        let f lhs = lhs -. get m (k,j) *. c in
+        modify m (i,j) f
+      done
+    end)
 
-let gauss_jordan = gauss_jordan step
-and gauss_jordan_with_norm = gauss_jordan (fun n m k ->
-  for i = 0 to n + 1 do
-    modify m (i,k) (fun lhs -> lhs /. get m (k, k))
-    done;
-  step n m k)
+let step_norm last n m k =
+  let c = get m (k, k) in
+  modify_vec m k @@ Array.map (fun lhs -> lhs /. c);
+  step last n m k
 
-(* No export function *)
+let gauss_jordan = gauss_elim 1
+
+let gauss_jordan = gauss_jordan step (mapi_vec (fun i v -> [| v.(Array.length v - 1) /. v.(i) |]))
+
+and gauss_jordan_with_norm = gauss_jordan step_norm (map_vec (fun v -> [| v.(Array.length v - 1) |])) 
+
+let gauss_elim m b =
+  let h = height m in
+  let m = m |$ identity h in
+  let post_p v =
+    let len = Array.length v / 2 in
+    Array.init len @@ fun i -> v.(len+i)
+  in
+  let post_p   = map_vec post_p in
+  let inv_a    = gauss_elim h step_norm post_p m in
+  inv_a *.$ b
+
+  (* No export function *)
 let step = ()
-
-let gauss_elim = ()
+let step_norm = ()

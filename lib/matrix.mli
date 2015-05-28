@@ -10,12 +10,17 @@
 type 'a matrix
 
 val make : int -> int -> 'a -> 'a matrix
+val init : int -> int -> (int -> int -> 'a) -> 'a matrix
+val identity : int -> float matrix
 
 val get : 'a matrix -> int * int -> 'a
 val get_vec : 'a matrix -> int -> 'a array
 
 val set : 'a matrix -> int * int -> 'a -> unit
+val set_vec : 'a matrix -> int -> 'a array -> unit
+
 val modify : 'a matrix -> int * int -> ('a -> 'a) -> unit
+val modify_vec : 'a matrix -> int -> ('a array -> 'a array) -> unit
 
 val width  : 'a matrix -> int
 val height : 'a matrix -> int

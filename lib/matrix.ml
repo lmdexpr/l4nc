@@ -8,12 +8,17 @@ exception Cannot_apply_dot_product
 let is_matrix a = let len = Array.length a.(0) in Array.for_all (fun e -> Array.length e <> len) a
 
 let make = Array.make_matrix
+let init n m f = Array.init n (fun i -> Array.init m (f i))
+let identity n = init n n (fun i j -> if i = j then 1. else 0.)
 
 let get a (i,j) = a.(i).(j)
 let get_vec = Array.get
 
 let set a (i,j) e = a.(i).(j) <- e
-let modify a pos f = set a pos (f (get a pos))
+let set_vec = Array.set
+
+let modify m pos f   = set m pos @@ f @@ get m pos
+let modify_vec m i f = set_vec m i @@ f @@ get_vec m i
 
 let width  m = if is_matrix m then raise Not_matrix else Array.length m.(0)
 let height   = Array.length
