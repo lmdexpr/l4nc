@@ -7,8 +7,10 @@ FILES[] =
   matrix
   matrix_op
   linearEq
+  type
   differentiation
   taylor
+  nonLinearEq
   l4nc
 
 LIB = l4nc
