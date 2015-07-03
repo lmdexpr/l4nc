@@ -1,4 +1,5 @@
 open Differentiation
+open Eval
 open Utils
 
 let rec fact acc n =

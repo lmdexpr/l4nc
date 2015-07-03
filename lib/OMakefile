@@ -8,6 +8,7 @@ FILES[] =
   matrix_op
   linearEq
   type
+  eval
   differentiation
   taylor
   nonLinearEq

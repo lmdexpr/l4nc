@@ -1,6 +1,9 @@
 open Differentiation
+open Eval
 exception Not_convergence
 exception Divergence
+
+let disable_logger _ _ = ()
 
 let newton_method f f' x0 logger e e1 = 
   let next x = x -. (to_val f x /. to_val f' x) in
@@ -17,10 +20,10 @@ let newton_method f f' x0 logger e e1 =
     end
   in helper 0 x0 @@ next x0
 
-let newton_method ?(logger=(fun _ _ -> ())) ?(epsilon=0.00001) ?(epsilon1=0.00001) exp x0 =
+let newton_method ?(logger=disable_logger) ?(epsilon=0.00001) ?(epsilon1=0.00001) exp x0 =
   newton_method exp (diff exp) x0 logger epsilon epsilon1
 
-let bisection_method ?(logger=(fun _ _ -> ())) ?(epsilon=0.00001) exp x1 h =
+let bisection_method ?(logger=disable_logger) ?(epsilon=0.00001) exp x1 h =
   let predicate x h = to_val exp x *. to_val exp (x+.h) < 0. in
   let rec helper x h = 
     let h      = h /. 2. in
