@@ -7,6 +7,8 @@ let times n f =
     f i
   done
 
+let (<~) f g x = f (g x)
+
 module Array = struct
   include Array
   let reduce f target =
