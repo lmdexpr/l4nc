@@ -4,21 +4,29 @@ module Mat = Matrix
 
 open Matrix_op
 
-module LESolver = LinearEq
-
-open Type
+module LESolver = struct
+  include LinearEq
+  include Type
+end
 
 module Diff = struct
   include Differentiation
   include Eval
+  include Type
 end
 
 module Integral = struct
   include Integral
   include Eval
+  include Type
 end
 
-module Taylor = Taylor
+module Taylor = struct
+  include Taylor
+  include Type
+end
 
-module NLESolver = NonLinearEq
-
+module NLESolver = struct
+  include NonLinearEq
+  include Type
+end

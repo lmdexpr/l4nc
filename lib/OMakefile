@@ -10,13 +10,16 @@ FILES[] =
   type
   eval
   differentiation
+  integral
   taylor
   nonLinearEq
   l4nc
 
 LIB = l4nc
+BYTE_ENABLED = true
+NATIVE_ENABLED = true
 
-.PHONY: clean install uninstall
+.PHONY: build clean toplevel install uninstall
 
 .DEFAULT: $(OCamlLibrary $(LIB), $(FILES))
 
