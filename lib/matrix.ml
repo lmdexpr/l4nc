@@ -5,7 +5,9 @@ exception Not_square_matrix
 exception Not_matrix
 exception Cannot_apply_dot_product
 
-let is_matrix a = let len = Array.length a.(0) in Array.for_all (fun e -> Array.length e <> len) a
+let is_matrix a =
+  let len = Array.length a.(0)
+  in Array.for_all (fun e -> Array.length e <> len) a
 
 let make = Array.make_matrix
 let init n m f = Array.init n (fun i -> Array.init m (f i))

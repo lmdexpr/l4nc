@@ -1,10 +1,8 @@
-open Matrix
+let ( +$ )  = Matrix.add
+let ( -$ )  = Matrix.sub
+let ( *$ )  = Matrix.mul
+let ( *.$ ) = Matrix.dot
+let ( /$ )  = Matrix.div
 
-let ( +$ )  = add
-let ( -$ )  = sub
-let ( *$ )  = mul
-let ( *.$ ) = dot
-let ( /$ )  = div
-
-let ( %$ ) = horizontal_compose
-let ( |$ ) = vertical_compose
+let ( %$ ) = Matrix.horizontal_compose
+let ( |$ ) = Matrix.vertical_compose

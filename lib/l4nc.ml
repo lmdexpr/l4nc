@@ -30,3 +30,5 @@ module NLESolver = struct
   include NonLinearEq
   include Type
 end
+
+module DiffEq = DifferentiationEq

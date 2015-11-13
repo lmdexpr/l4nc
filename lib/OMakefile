@@ -4,6 +4,7 @@
 
 FILES[] =
   utils
+  logger
   matrix
   matrix_op
   linearEq
@@ -13,6 +14,7 @@ FILES[] =
   integral
   taylor
   nonLinearEq
+  differentiationEq
   l4nc
 
 LIB = l4nc
