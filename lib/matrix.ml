@@ -33,8 +33,14 @@ let vsplit = ()
 let map_vec  = Array.map
 let mapi_vec = Array.mapi
 
-let map f = map_vec (fun v -> map_vec f v)
+let map   f = map_vec (fun v -> map_vec f v)
 let mapij f = mapi_vec (fun i v -> mapi_vec (fun j e -> f i j e) v)
+
+let iter_vec  = Array.iter
+let iteri_vec = Array.iteri
+
+let iter   f = iter_vec (fun v -> iter_vec f v)
+let iterij f = iteri_vec (fun i v -> iteri_vec (fun j e -> f i j e) v)
 
 let fold_right op m one = Array.fold_right op (map_vec (fun v -> Array.fold_right op v one) m) one
 let reduce op m = Array.reduce op (map_vec (fun v -> Array.reduce op v) m)
@@ -91,15 +97,20 @@ let filter_tri = ()
 
 let normalize m = ()
 
-let print_matrix m =
+let print = iter_vec (fun v -> Array.iter (Printf.printf "%f ") v; print_newline ())
+
+let pretty_print m =
   let w = width m in
-  print_string "    ";
+  print_string "     ";
   for i = 1 to w do
-    Printf.printf "%9d" i
+    Printf.printf " [%6d]" i
   done;
   print_newline ();
-  Array.iteri (fun i v ->
-    Printf.printf "%3d:" (i+1);
-    Array.iter (Printf.printf "%9F") v;
+  iteri_vec (fun i v ->
+    Printf.printf "[%3d]" (i+1);
+    iter_vec (Printf.printf "%9F") v;
     print_newline ()
   ) m
+
+(* Deprecated *)
+let print_matrix = pretty_print

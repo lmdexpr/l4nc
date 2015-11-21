@@ -30,11 +30,17 @@ val hsplit : 'a matrix -> int -> 'a matrix * 'a matrix
 val vsplit : 'a matrix -> int -> 'a matrix * 'a matrix
 *)
 
-val map_vec : ('a array -> 'b array) -> 'a matrix -> 'b matrix
-val mapi_vec : (int -> 'a array -> 'b array) -> 'a matrix -> 'b matrix
+val map_vec   : ('a array -> 'b array) -> 'a matrix -> 'b matrix
+val mapi_vec  : (int -> 'a array -> 'b array) -> 'a matrix -> 'b matrix
 
-val map : ('a -> 'b) -> 'a matrix -> 'b matrix
-val mapij : (int -> int -> 'a -> 'b) -> 'a matrix -> 'b matrix
+val map       : ('a -> 'b) -> 'a matrix -> 'b matrix
+val mapij     : (int -> int -> 'a -> 'b) -> 'a matrix -> 'b matrix
+
+val iter_vec  : ('a array -> unit) -> 'a matrix -> unit
+val iteri_vec : (int -> 'a array -> unit) -> 'a matrix -> unit
+
+val iter      : ('a -> unit) -> 'a matrix -> unit
+val iterij    : (int -> int -> 'a -> unit) -> 'a matrix -> unit
 
 val fold_right : ('a -> 'a -> 'a) -> 'a matrix -> 'a -> 'a
 val reduce: ('a -> 'a -> 'a) -> 'a matrix -> 'a
@@ -74,4 +80,6 @@ val tril : float matrix -> float matrix
 (* todo: implement *)
 val normalize : float matrix -> unit
 
+val print : float matrix -> unit
+val pretty_print : float matrix -> unit
 val print_matrix : float matrix -> unit
