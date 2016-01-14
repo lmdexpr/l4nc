@@ -103,12 +103,12 @@ let pretty_print m =
   let w = width m in
   print_string "     ";
   for i = 1 to w do
-    Printf.printf " [%6d]" i
+    Printf.printf " [%8d]" i
   done;
   print_newline ();
   iteri_vec (fun i v ->
     Printf.printf "[%3d]" (i+1);
-    iter_vec (Printf.printf "%9F") v;
+    iter_vec (Printf.printf "%11F") v;
     print_newline ()
   ) m
 

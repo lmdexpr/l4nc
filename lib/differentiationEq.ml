@@ -130,14 +130,14 @@ let rec boundary_problem min max fa fb fc n =
 
   let x i  = fst min +. h *. (float i) in
 
-  (*
   let k2 i = 1. /. (h *. h) +. fa (x i) /. (2. *. h)
   and k1 i = fb (x i) -. 2. /. (h *. h)
-  and k0 i = 1. /. (h *. h) -. fa (x i) /. (2. *. h) in
-  *)
+  and k0 i = 1. /. (h *. h) -. fa (x i) /. (2. *. h)
+  (*
   let k2 i = 1. +. h *. fa (x i) /. 2.
   and k1 i = h  *. h *. fb (x i) -. 2.
   and k0 i = 1. -. h *. fa (x i) /. 2.
+  *)
   and fc x = h *. h *. fc x in
 
   let difference_eq i j =
