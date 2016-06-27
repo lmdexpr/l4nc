@@ -150,3 +150,23 @@ let rec boundary_problem min max fa fb fc n =
       if i = n-1 then snd max *. k2 i else 0.) in
 
   Matrix.init n n difference_eq, Matrix.init n 1 coefficient
+
+let poisson_solver ?(linearEq_solver=LinearEq.gauss_jordan) step endx endy s0 s1 s2 upper_bounds = 
+  let upper_bounds_op list_func op (x,y) = list_func (fun f -> (f x y)) (upper_bounds op) in
+  let upper_bounds    = upper_bounds_op List.for_all (<) in
+  let on_upper_bounds = upper_bounds_op List.exists  (=) in
+  let rec grids x y =
+    if x = 0. then []
+    else if y = 0. then grids (x -. step) endy
+    else if upper_bounds (x,y) then (x,y) :: grids x (y -. step)
+    else grids x (y -. step) in
+  let grids = Array.of_list @@ grids endx endy in
+  let dim = Array.length grids in
+  let four_nei (i,j) = [(i, j -. step); (i, j +. step); (i +. step, j); (i -. step, j)] in
+  let a = Matrix.init dim dim (fun i j -> if i = j then -4. else if List.mem grids.(i) (four_nei grids.(j)) then 1. else 0.) in
+  let s (i,j) = if j = 0. then s0 (i,j) else if i = 0. then s1 (i,j) else if on_upper_bounds (i,j) then s2 (i,j) else 0. in
+  let b = Matrix.init dim 1 (fun i _ -> 
+    let (i,j) = grids.(i) in
+    List.fold_left (+.) 0. (List.map s @@ four_nei (i,j))
+    ) in
+  (grids, Matrix.map (fun e -> abs_float e) @@ linearEq_solver (a |$ b))

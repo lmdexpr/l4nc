@@ -80,6 +80,8 @@ val tril : float matrix -> float matrix
 (* todo: implement *)
 val normalize : float matrix -> unit
 
+val power_method : ?epsilon:float -> ?logger:(float -> float matrix -> unit) -> float matrix -> float -> float * float matrix
+
 val print : float matrix -> unit
 val pretty_print : float matrix -> unit
 val print_matrix : float matrix -> unit

@@ -92,6 +92,18 @@ let diag = diagonal
 let triu = filter_tri (<)
 let tril = filter_tri (>)
 
+let power_method ?(epsilon=0.1) ?(logger=Logger.disable_logger2) m lambda_0 =
+  Random.self_init ();
+  let norm u = map (fun e -> e /. (sqrt @@ get (dot (transpose u) u) (0,0))) u in
+  let x0 = norm @@ init (height m) 1 (fun _ _ -> Random.float 1000.) in
+  let rec helper k lambda x =
+    let u = dot m x in
+    let lambda_k = get (dot (transpose x) u) (0,0) in
+    let x = norm u in
+    logger lambda_k x;
+    if abs_float(lambda_k -. lambda) >= epsilon then helper (k+1) lambda_k x else (lambda_k, x)
+  in helper 1 lambda_0 x0
+
 (* No export function *)
 let filter_tri = ()
 
@@ -114,3 +126,4 @@ let pretty_print m =
 
 (* Deprecated *)
 let print_matrix = pretty_print
+

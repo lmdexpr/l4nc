@@ -8,13 +8,14 @@ let rec fact acc n =
 
 let fact = fact 1.
 
-let approximate x0 f logger x n = 
+let approximate ?(y_flag=false) x0 ?(y0=0.) f logger x n = 
+  let y = if y_flag then y0 else 0. in
   let rec approximate acc df k = 
     if k > n then acc
     else begin
-      let acc = acc +. (to_val df x0 /. fact k) *. ((x -. x0) ** float k) in
+      let acc = acc +. (to_val df x0 ~y /. fact k) *. ((x -. x0) ** float k) in
       logger acc;
-      approximate acc (diff f) (k+1)
+      approximate acc (diff f ~y_flag) (k+1)
     end
   in
   approximate 0. f 0

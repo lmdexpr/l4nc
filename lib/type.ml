@@ -1,5 +1,6 @@
 type func =
   | X
+  | Y
   | FVal of float
   | Add  of func * func
   | Mul  of func * func

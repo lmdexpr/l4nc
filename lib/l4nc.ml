@@ -1,8 +1,9 @@
 (* Library for Numerical Calculation *)
 
-module Mat = Matrix
-
-open Matrix_op
+module Mat = struct
+  include Matrix
+  include Matrix_op
+end
 
 module LESolver = struct
   include LinearEq

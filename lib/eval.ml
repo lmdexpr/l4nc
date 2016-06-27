@@ -23,6 +23,7 @@ let rec eval = function
   | Neg x  -> Neg (eval x)
   | FVal x -> FVal x
   | X      -> X
+  | Y      -> Y
 
 let eval f =
   let g = ref @@ eval f in
@@ -33,14 +34,15 @@ let eval f =
   done;
   !g
 
-let rec to_val f x = match f with
+let rec to_val f ?(y=0.) x = match f with
   | FVal c -> c 
-  | Add (f, g) -> to_val f x +. to_val g x
-  | Mul (f, g) -> to_val f x *. to_val g x
-  | Div (f, g) -> to_val f x /. to_val g x
-  | Pow (f, FVal c) -> to_val f x ** c
-  | Exp f -> exp (to_val f x)
-  | Ln  f -> log (to_val f x)
-  | Neg f -> -1. *. to_val f x
+  | Add (f, g) -> to_val f x ~y +. to_val g x ~y
+  | Mul (f, g) -> to_val f x ~y *. to_val g x ~y
+  | Div (f, g) -> to_val f x ~y /. to_val g x ~y
+  | Pow (f, FVal c) -> to_val f x ~y ** c
+  | Exp f -> exp (to_val f x ~y)
+  | Ln  f -> log (to_val f x ~y)
+  | Neg f -> -1. *. to_val f x ~y
   | X -> x
+  | Y -> y
   | _ -> raise Not_implemented
